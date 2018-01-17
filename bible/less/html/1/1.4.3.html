@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+ <meta charset="utf-8">
+ <title>LESS编译工具Koala_Koala界面介绍-歪脖网</title>
+ <meta name="keywords" content="Less, Less.js, Koala,LESS编译工具" />
+ <meta name="description" content="Koala是由国人开放的一款开源的前端预处理器语言图形编译工具，可以跨平台运行，完美兼容windows、linux、mac，支持Less、Sass、Compass、CoffeeScript，帮助Web开发人员更高效地进行开发" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+ <link href="http://localhost/waibo/css/bootstrap.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/bootstrap-responsive.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/style.css" rel="stylesheet" />
+
+ <script src="http://localhost/waibo/js/jquery.js"></script>
+ <script src="http://localhost/waibo/js/script.js"></script>
+</head>
+
+<body>
+ <div class="topbar">
+ <div class="eyebrow hidden-phone">
+ <div class="container">
+ <ul class="pull-left">
+   <li><a href="http://www.waibo.wang/" target="_blank">歪脖网</a>欢迎您！</li>
+ </ul>
+ <ul class="pull-right">
+  <li><a href="http://www.waibo.wang/user/">登录</a></li>
+  <li class="b">|</li>
+  <li><a href="http://www.waibo.wang/user/register.asp" target="_blank">注册</a></li>
+ </div>
+ </div>
+
+<div class="topnav">
+<div class="container">
+  <div class="row-fluid mtz">
+  <div class="span3 topnav-logo">
+    <a href="http://www.waibo.wang/"><p class="logo-cn">歪脖网</p><p class="logo-en hidden-phone">waibo.wang</p></a>
+  </div>
+  <div class="span6 nav">
+   <ul>
+     <li ><a href="http://www.waibo.wang/">首页</a></li>
+     <li class="active"><a href="http://localhost/waibo/">教程</a></li>
+     <li ><a href="http://www.waibo.wang/wiki/">专栏</a></li>
+     <li ><a href="http://www.waibo.wang/demo/">素材</a></li>
+   </ul>
+  </div>
+  <div class="span3 topnav-form">
+  </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+ <div class="container">
+ <div class="row-fluid">
+ <aside class="span3">
+ <map id="oAll" name="oAll">
+ <area title="全部展开" shape="rect" coords="0,0,22,20"  href="javascript:tree.openAll();" onfocus="blur(this);">
+ <area title="全部收起" shape="rect" coords="22,0,44,20" href="javascript:tree.closeAll();" onfocus="blur(this);">
+ </map>
+ <header><span>目录</span><img src="../../../../img/map.png" usemap="#oAll"/></header>
+ <script src="http://localhost/waibo/js/dtree.js"></script>
+ <script src="http://localhost/waibo/bible/less/js/tree.js"></script>
+ <script>
+    createTree("10403");
+ </script>
+ </aside>
+
+ <main class="span9">
+ <header><div class="name"><strong>Less简明教程</strong></div><div class="section">1.4.3 Koala界面介绍</div></header>
+ <div><label id="treeview"><input id="show" type="checkbox" checked /> 文档结构视图</label><span class="hit">阅读（ <span id="hit"></span> ）</div>
+ <article>
+<h1 class="hide-text">Less 基础</h1>
+<h2 class="hide-text">认识 Less</h2>
+<h2 class="hide-text">Less 原理</h2>
+<h2 class="hide-text">Less 用法</h2>
+<h2 class="hide-text">Less 编译工具</h2>
+<h3 class="hide-text">如何使用Koala</h3>
+<h3 class="hide-text">选择Koala的理由</h3>
+<h3>Koala界面介绍</h3>
+<p>把文件夹拖入窗口后，Koala会自动创建相应的工程。Koala的界面被分为四个区域，分别是按钮区、工程区、工程文件列表区、设置区。如图 1‑3所示：</p>
+<figure><img src='http://localhost/waibo/bible/less/img/1/1-3.png' title='Koala界面分区' alt='Koala界面分区'><figcaption>图1-3  Koala界面分区</figcaption></figure>
+<h4>按钮区</h4>
+<p>第一个区域为按钮区，包含三个按钮。第一个按钮用于添加工程，第二个按钮用于打开编译文件的错误提示信息，第三个按钮用于Koala的全局设置，可以设置界面语言，Less、Sass等的默认选项和输出方式及高级设置等。当然，这里也包括Koala的当前版本号及作者信息等。</p>
+<h4>工程区</h4>
+<p>第二个区域为工程区，该区域会显示所有的工程，一行是一个工程。可以直接把文件夹拖入到该区域，每拖入一个文件夹就会添加一个工程。</p>
+<h4>文件列表区</h4>
+<p>第三个区域为工程的文件列表区，显示被选中工程中的文件列表，每行是一个文件。每个文件的前面，有一个矩形图标用来标识文件的类型，图标后面紧跟文件名及编译输出的CSS文件的路径。</p>
+<p>如果该文件需要自动编译，图标和文本会以深色正常显示，否则会反灰显示（如，CSS就被反灰显示）。</p>
+<p>可以直接把文件拖入到该区域，拖入的文件会被添加到被选中的工程中。添加文件后，需要点击上面的 refresh按钮来刷新文件列表。选中文件后，键盘点delete键，可以将该文件从工程中移除。也可以在某个文件上右击鼠标，根据弹出的功能菜单执行相应的操作。如图 1‑4所示：</p>
+<figure><img src='http://localhost/waibo/bible/less/img/1/1-4.png' title='Koala文件右键菜单' alt='Koala文件右键菜单'><figcaption>图1-4  Koala文件右键菜单</figcaption></figure>
+<p>如果工程中的文件类型较多，也可以通过下面的all/Styles/Scripts/Tmpl/JS/CSS 来过滤需要编译的文件。</p>
+<h4>编译选项设置区</h4>
+<p>第四区域为文件的编译选项设置区，该区域默认不会显示出来，只有当鼠标单击文件列表区的某个文件时，才会显示出来。</p>
+<p>这个区域可以针对某个文件设置自动编译、编译选项、输出方式，还可以点击&ldquo;执行编译&rdquo;来手动编译。</p>
+<p>1、自动编译</p>
+<p>当开启自动编译时，在编辑器中按下 Ctrl+S 保存文件时，Koala会自动编译，并自动更新相应的CSS 文件。如果没有打开自动编译功能，就需要手动点击&ldquo;执行编译&rdquo;，才会编译并更新 CSS 文件。</p>
+<p>2、编译选项</p>
+<p>1）source map（源文件映射）：开启该功能后，在编译Less的同时，会生成相应的source map 文件。这样，就可以在Firefox或谷歌浏览器中，通过sourcemap来直接调试Less源文件。如，以下Less文件（下同）：</p>
+<pre class="prettyprint linenums">
+<code>@color: #4D926F;
+.nav  { 
+    color: @color;
+} </code></pre>
+<p>编译后CSS文件为：</p>
+<pre class="prettyprint linenums">
+<code>.nav {
+  color: #4d926f;
+}
+/*# sourceMappingURL=styles.css.map */</code></pre>
+<p>可以看出，在生成的CSS文件的末尾，会指示生成的 source map 的URL信息。本例中，source map 的URL为Less文件相同目录下的 styles.css.map文件。styles.css.map是一个独立的文件，内容如下：</p>
+<pre class="prettyprint linenums">
+<code>{&quot;version&quot;:3,&quot;file&quot;:&quot;styles.css&quot;,&quot;sources&quot;:[&quot;styles.less&quot;],&quot;names&quot;:[],&quot;mappings&quot;:&quot;AACA;EACI,cAAA;;AAGJ;EACE,cAAA&quot;,&quot;sourceRoot&quot;:&quot;..\\less&quot;}</code></pre>
+<p>简单说，.map文件就是一个关系映射文件，里面存储着编译前和编译后代码的文件、行号、列号和变量名的映射关系，以便开发人员根据这些位置信息来调试Less源文件。</p>
+<p>2）line comments（行注释）：开启该功能后，会在编译出来的CSS文件中对应的CSS 代码上方，提供一个注释，用来说明CSS 代码来自哪个Less文件，以及从哪一行开始。</p>
+<p>编译后CSS文件为：</p>
+<pre class="prettyprint linenums">
+<code>/* line 3, styles.less */ 
+.nav  { 
+  color: #4d926f; 
+} </code></pre>
+<p>3）debug info（调试信息）：开启该功能后，编译生成的 CSS文件中就会包含调试信息。这样的话，通过Firefox或谷歌的调试工具，就可以定位到Less文件，而不是编译后的CSS文件。</p>
+<p>编译后CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/less\/styles\.less}line{font-family:\ 32}}
+.nav {
+  color: #4d926f;
+}</code></pre>
+<p>如果编译生成的CSS文件中没有以 @media -sass-debug-info 开头的代码，说明没有输出调试信息。请使用Koala重新编译Less文件，并确定已经勾选了debug info选项。</p>
+<p>4）strict math（严格运算模式）：开启&ldquo;严格运算模式&rdquo;后，数学运算必须放在括号中，否则可能会出现错误的结果。如以下Less代码：</p>
+<pre class="prettyprint linenums">
+<code>p  { 
+    line-height: 1+1;
+} </code></pre>
+<p>在关闭&ldquo;严格运算模式&rdquo;时，编译后CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>p {
+  line-height: 2;
+}</code></pre>
+<p>在开启&ldquo;严格运算模式&rdquo;时，编译后CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>p  { 
+    line-height: 1+1;
+} </code></pre>
+<p>显然，这并不是我们想要的结果。因此，在开启&ldquo;严格运算模式&rdquo;后，如果想要得到正确的结果，所有的数学运算都必须放在括号中。如：</p>
+<pre class="prettyprint linenums">
+<code>p  { 
+    line-height: (1+1);
+}</code></pre>
+<p>5）strict units（严格单位模式）：开启&ldquo;严格单位模式&rdquo;后，在编译时将强制验证单位的合法性。如，4px/2px 结果为 2，而不是 2px，而 4em/2px 将报错。如以下Less代码：</p>
+<pre class="prettyprint linenums">
+<code>.nav  {
+    font-size: 100em/5px;
+}</code></pre>
+<p>由于上述代码没有使用严格单位，因此在&ldquo;严格单位模式&rdquo;下，就会出现编译错误。错误信息如下：</p>
+<pre class="prettyprint linenums">
+<code>SyntaxError: Multiple units in dimension. Correct the units or use the unit function. Bad unit: em/px in D:\less\styles.less:2:4
+1 .nav  { 
+2     font-size: 100em/5px;
+3 }</code></pre>
+<p>6）autoprefix（自动前缀模式）：开启&ldquo;自动前缀模式&rdquo;后，在编译时会为某些非常新的CSS属性添加浏览器私有前缀。如，以下Less代码：</p>
+<pre class="prettyprint linenums">
+<code>h2 {
+  transform: rotate(45deg);
+}</code></pre>
+<p>在开启&ldquo;自动前缀模式&rdquo;时，编译后CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>h2 {
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+}</code></pre>
+<div id="modalReward" class="modal hide fade modal-reward" tabindex="-1">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h6>打赏</h6>
+</div>
+<div class="modal-body">
+<div class="tabbable reward-weipay">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#weipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#weipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#weipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#weipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#weipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#weipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="weipay1">
+<img src="http://localhost/waibo/img/weipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="weipay2">
+<img src="http://localhost/waibo/img/weipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="weipay5">
+<img src="http://localhost/waibo/img/weipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="weipay10">
+<img src="http://localhost/waibo/img/weipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="weipay20">
+<img src="http://localhost/waibo/img/weipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="weipayrand">
+<img src="http://localhost/waibo/img/weipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="tabbable reward-alipay hide">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#alipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#alipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#alipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#alipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#alipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#alipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="alipay1">
+<img src="http://localhost/waibo/img/alipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="alipay2">
+<img src="http://localhost/waibo/img/alipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="alipay5">
+<img src="http://localhost/waibo/img/alipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="alipay10">
+<img src="http://localhost/waibo/img/alipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="alipay20">
+<img src="http://localhost/waibo/img/alipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="alipayrand">
+<img src="http://localhost/waibo/img/alipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="reward-method">
+<label><input type="radio" name="method" value="weipay" checked><img src="http://localhost/waibo/img/weipay.png" alt="微信支付"></label>
+<label><input type="radio" name="method" value="alipay"><img src="http://localhost/waibo/img/alipay.png" alt="支付宝"></label>
+</div>
+</div>
+</div>
+<div class="reward">
+<p>如果本教程对您帮助很大，请随意打赏。您的支持，将鼓励我写出更好的教程！</p>
+<a data-toggle="modal" href="#modalReward">赏</a>
+</div>
+ <div class="page">
+   <a id="prev" href="http://localhost/waibo/bible/less/html/1/1.4.2.html" title="&#8592; 键到上一节">« 上一节</a>&#8592; 键盘方向键翻页 &#8594;<a id="next" href="http://localhost/waibo/bible/less/html/2/2.html" title="&#8594; 键到下一节">下一节 »</a>
+ </div>
+ </article>
+ </main>
+ </div>
+ </div>
+ <div class="floatPanel">
+	 <div class="ctrolPanel">
+		 <a href="javascript:;" class="arrow top" onClick="goTop()"><span>返回顶部</span></a>
+    <a href="#" class="phone"  data-target="#phone"><span>手机访问</span></a>
+    <a href="#" class="wechat" data-target="#wechat"><span>关注微信</span></a>
+    <a href="javascript:;" class="arrow bottom" onClick="goBottom()"><span>返回底部</span></a>
+  </div>
+	<div id="phone" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/site.png" /><p class="slogan">扫码访问歪脖网</p><p>随时随地，想看就看</p>
+		</div>
+	</div>
+	<div id="wechat" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/weixin.png" /><p class="slogan">关注歪脖网微信</p><p>分享 web 知识、交流 web 经验</p>
+		</div>
+	</div>
+</div>
+ <footer>
+   <p>Copyright&copy;2017&nbsp;&nbsp;www.waibo.wang All Rights Reserved</p>
+   <p>陕ICP备17020676号-1&nbsp;&nbsp;&nbsp;&nbsp;客服QQ：376601179&nbsp;&nbsp;&nbsp;&nbsp;邮箱：376601179#qq.com
+ </footer>
+ <script src="../../../../js/prettify.js"></script>
+ <script src="../../../../js/bootstrap.min.js"></script>
+ <script>
+ $(function() {
+    prettyPrint();
+    bible();
+    load();
+    rewardMethod();
+ });
+ </script>
+</body>
+</html>

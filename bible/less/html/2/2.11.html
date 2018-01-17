@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+ <meta charset="utf-8">
+ <title>Less Mixin Guards_Less Guard表达式-歪脖网</title>
+ <meta name="keywords" content="Less, Less.js, mixin,Less Guard,Less Guard表达式" />
+ <meta name="description" content="当需要根据表达式，而不是参数的值或数量进行匹配时，条件表达式（Guards）就显得非常有用" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+ <link href="http://localhost/waibo/css/bootstrap.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/bootstrap-responsive.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/style.css" rel="stylesheet" />
+
+ <script src="http://localhost/waibo/js/jquery.js"></script>
+ <script src="http://localhost/waibo/js/script.js"></script>
+</head>
+
+<body>
+ <div class="topbar">
+ <div class="eyebrow hidden-phone">
+ <div class="container">
+ <ul class="pull-left">
+   <li><a href="http://www.waibo.wang/" target="_blank">歪脖网</a>欢迎您！</li>
+ </ul>
+ <ul class="pull-right">
+  <li><a href="http://www.waibo.wang/user/">登录</a></li>
+  <li class="b">|</li>
+  <li><a href="http://www.waibo.wang/user/register.asp" target="_blank">注册</a></li>
+ </div>
+ </div>
+
+<div class="topnav">
+<div class="container">
+  <div class="row-fluid mtz">
+  <div class="span3 topnav-logo">
+    <a href="http://www.waibo.wang/"><p class="logo-cn">歪脖网</p><p class="logo-en hidden-phone">waibo.wang</p></a>
+  </div>
+  <div class="span6 nav">
+   <ul>
+     <li ><a href="http://www.waibo.wang/">首页</a></li>
+     <li class="active"><a href="http://localhost/waibo/">教程</a></li>
+     <li ><a href="http://www.waibo.wang/wiki/">专栏</a></li>
+     <li ><a href="http://www.waibo.wang/demo/">素材</a></li>
+   </ul>
+  </div>
+  <div class="span3 topnav-form">
+  </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+ <div class="container">
+ <div class="row-fluid">
+ <aside class="span3">
+ <map id="oAll" name="oAll">
+ <area title="全部展开" shape="rect" coords="0,0,22,20"  href="javascript:tree.openAll();" onfocus="blur(this);">
+ <area title="全部收起" shape="rect" coords="22,0,44,20" href="javascript:tree.closeAll();" onfocus="blur(this);">
+ </map>
+ <header><span>目录</span><img src="../../../../img/map.png" usemap="#oAll"/></header>
+ <script src="http://localhost/waibo/js/dtree.js"></script>
+ <script src="http://localhost/waibo/bible/less/js/tree.js"></script>
+ <script>
+    createTree("211");
+ </script>
+ </aside>
+
+ <main class="span9">
+ <header><div class="name"><strong>Less简明教程</strong></div><div class="section">2.11 条件表达式</div></header>
+ <div><label id="treeview"><input id="show" type="checkbox" checked /> 文档结构视图</label><span class="hit">阅读（ <span id="hit"></span> ）</div>
+ <article>
+<h1 class="hide-text">Less 基础</h1>
+<h1 class="hide-text">Less 特性</h1>
+<h2 class="hide-text">变量</h2>
+<h2 class="hide-text">Mixin</h2>
+<h2 class="hide-text">嵌套规则</h2>
+<h2 class="hide-text">运算和函数</h2>
+<h2 class="hide-text">转义字符</h2>
+<h2 class="hide-text">注释</h2>
+<h2 class="hide-text">命名空间</h2>
+<h2 class="hide-text">@import指令</h2>
+<h2 class="hide-text">!important关键字</h2>
+<h2 class="hide-text">模式匹配</h2>
+<h2>条件表达式</h2>
+<p>当需要根据表达式，而不是参数的值或数量进行匹配时，条件表达式（Guards）就显得非常有用。如果你熟悉函数式编程的话，对条件表达式也不会陌生。</p>
+<p>为了尽可能地接近CSS的语言结构，Less使用关键字 when 而不是 if/else来实现条件判断，因为 when 已经在CSS的 @media query 特性中被定义。</p>
+<p>表达式中可以使用比较运算符、逻辑运算符、或检查函数来进行条件判断。</p>
+<p>1、比较运算符</p>
+<p>Less包含五个比较运算符：&lt;、&gt;、&lt;=、&gt;=、=，可以使用比较运算符（=）来比较数字，字符串、标识符等，而其余的运算符只能与数字一起使用。如，以下Less代码：</p>
+<pre class="prettyprint linenums">
+<code>.mixin (@a) when (@a = 20px){
+    color:red;
+}
+.mixin (@a) when (@a &lt; 20px){
+    color:blue;
+}
+.mixin (@a) {
+    font-size: @a;
+}
+h2 {
+    .mixin(20px)
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>h2 {
+  color: red;
+  font-size: 20px;
+}</code></pre>
+<p>此外，还可以使用关键字true，它表示布尔真，以下两个mixin是相同的：</p>
+<pre class="prettyprint linenums">
+<code>.truth (@a) when (@a) { ... }
+.truth (@a) when (@a = true) { ... }</code></pre>
+<p>在Less中，只有 true 表示布尔真，关键字true以外的任何值，都被视为布尔假。如：</p>
+<pre class="prettyprint linenums">
+<code>.class {
+  .truth(40);  // 不会匹配以上任何定义
+}</code></pre>
+<p>Less中，Guards可以是多个表达式，多个表达式之间，使用逗号&lsquo;,&rsquo;分隔。如果其中任意一个表达式的结果为 true，则匹配成功，这就相当于&ldquo;或&rdquo;的关系。如：</p>
+<pre class="prettyprint linenums">
+<code>.mixin (@a) when (@a &lt; -10), (@a &gt; 10) {
+    width: 100px;
+}</code></pre>
+<p>上述Guards就表示： [-10,10] 之间的值将匹配失败，其余均匹配成功。比如以下调用，.class1 和 .class3 会匹配成功，.class2 将匹配失败：</p>
+<pre class="prettyprint linenums">
+<code>.class1 {
+   .mixin(-20);
+}
+.class2 {
+   .mixin(0);
+}
+.class3 {
+   .mixin(20);
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.class1 {
+  width: 100px;
+}
+.class3 {
+  width: 100px;
+}</code></pre>
+<p>2、逻辑运算符</p>
+<p>Less中，Guards也可以使用 and 和 not 来进行逻辑运算。如，以下Less代码：</p>
+<pre class="prettyprint linenums">
+<code>.mixin (@a) when (@a &gt; 50%) and (@a &gt; 5px){
+    font-size: 14px;
+}
+.mixin (@a) when not (@a &lt; 50%) and not (@a &lt; 5px){
+    font-size: 20px;
+}
+.mixin (@a) {
+    color: @a;
+}
+.class1 {
+    .mixin(#FF0000)
+ }
+.class2 {
+    .mixin(#555)
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.class1 {
+  color: #ff0000;
+}
+.class2 {
+  color: #555555;
+}</code></pre>
+<p>3、检查函数</p>
+<p>如果想基于值的类型、或特定的单位进行匹配，就可以使用 is* 函数。如：</p>
+<pre class="prettyprint linenums">
+<code>.mixin (@a, @b: 0) when (isnumber(@a)) { ... }
+.mixin (@a, @b: black) when (iscolor(@b) and (@a &gt; 0)) { ... }</code></pre>
+<p>以下是常见的类型检查函数：</p>
+<ul>
+	<li>Iscolor：是否为颜色值。</li>
+	<li>Isnumber：是否为数值。</li>
+	<li>Isstring：是否为字符串。</li>
+	<li>Iskeyword：是否为关键字。</li>
+	<li>Isurl：是否为URL字符串。</li>
+	<li>以下是常见的单位检查函数：</li>
+	<li>Ispixel：是否为像素单位。</li>
+	<li>ispercentage：是否为百分比。</li>
+	<li>isem：是否为em单位。</li>
+	<li>isunit：是否为单位。</li>
+</ul>
+<div id="modalReward" class="modal hide fade modal-reward" tabindex="-1">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h6>打赏</h6>
+</div>
+<div class="modal-body">
+<div class="tabbable reward-weipay">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#weipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#weipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#weipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#weipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#weipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#weipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="weipay1">
+<img src="http://localhost/waibo/img/weipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="weipay2">
+<img src="http://localhost/waibo/img/weipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="weipay5">
+<img src="http://localhost/waibo/img/weipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="weipay10">
+<img src="http://localhost/waibo/img/weipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="weipay20">
+<img src="http://localhost/waibo/img/weipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="weipayrand">
+<img src="http://localhost/waibo/img/weipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="tabbable reward-alipay hide">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#alipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#alipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#alipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#alipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#alipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#alipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="alipay1">
+<img src="http://localhost/waibo/img/alipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="alipay2">
+<img src="http://localhost/waibo/img/alipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="alipay5">
+<img src="http://localhost/waibo/img/alipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="alipay10">
+<img src="http://localhost/waibo/img/alipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="alipay20">
+<img src="http://localhost/waibo/img/alipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="alipayrand">
+<img src="http://localhost/waibo/img/alipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="reward-method">
+<label><input type="radio" name="method" value="weipay" checked><img src="http://localhost/waibo/img/weipay.png" alt="微信支付"></label>
+<label><input type="radio" name="method" value="alipay"><img src="http://localhost/waibo/img/alipay.png" alt="支付宝"></label>
+</div>
+</div>
+</div>
+<div class="reward">
+<p>如果本教程对您帮助很大，请随意打赏。您的支持，将鼓励我写出更好的教程！</p>
+<a data-toggle="modal" href="#modalReward">赏</a>
+</div>
+ <div class="page">
+   <a id="prev" href="http://localhost/waibo/bible/less/html/2/2.10.html" title="&#8592; 键到上一节">« 上一节</a>&#8592; 键盘方向键翻页 &#8594;<a id="next" href="http://localhost/waibo/bible/less/html/2/2.12.html" title="&#8594; 键到下一节">下一节 »</a>
+ </div>
+ </article>
+ </main>
+ </div>
+ </div>
+ <div class="floatPanel">
+	 <div class="ctrolPanel">
+		 <a href="javascript:;" class="arrow top" onClick="goTop()"><span>返回顶部</span></a>
+    <a href="#" class="phone"  data-target="#phone"><span>手机访问</span></a>
+    <a href="#" class="wechat" data-target="#wechat"><span>关注微信</span></a>
+    <a href="javascript:;" class="arrow bottom" onClick="goBottom()"><span>返回底部</span></a>
+  </div>
+	<div id="phone" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/site.png" /><p class="slogan">扫码访问歪脖网</p><p>随时随地，想看就看</p>
+		</div>
+	</div>
+	<div id="wechat" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/weixin.png" /><p class="slogan">关注歪脖网微信</p><p>分享 web 知识、交流 web 经验</p>
+		</div>
+	</div>
+</div>
+ <footer>
+   <p>Copyright&copy;2017&nbsp;&nbsp;www.waibo.wang All Rights Reserved</p>
+   <p>陕ICP备17020676号-1&nbsp;&nbsp;&nbsp;&nbsp;客服QQ：376601179&nbsp;&nbsp;&nbsp;&nbsp;邮箱：376601179#qq.com
+ </footer>
+ <script src="../../../../js/prettify.js"></script>
+ <script src="../../../../js/bootstrap.min.js"></script>
+ <script>
+ $(function() {
+    prettyPrint();
+    bible();
+    load();
+    rewardMethod();
+ });
+ </script>
+</body>
+</html>

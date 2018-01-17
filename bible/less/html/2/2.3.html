@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+ <meta charset="utf-8">
+ <title>Less & 用法_Less的&_Less的嵌套规则-歪脖网</title>
+ <meta name="keywords" content="Less, Less.js, Less &,Less的嵌套规则" />
+ <meta name="description" content="Less的嵌套规则允许在一个选择器中嵌套另一个选择器" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+ <link href="http://localhost/waibo/css/bootstrap.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/bootstrap-responsive.min.css" rel="stylesheet" />
+ <link href="http://localhost/waibo/css/style.css" rel="stylesheet" />
+
+ <script src="http://localhost/waibo/js/jquery.js"></script>
+ <script src="http://localhost/waibo/js/script.js"></script>
+</head>
+
+<body>
+ <div class="topbar">
+ <div class="eyebrow hidden-phone">
+ <div class="container">
+ <ul class="pull-left">
+   <li><a href="http://www.waibo.wang/" target="_blank">歪脖网</a>欢迎您！</li>
+ </ul>
+ <ul class="pull-right">
+  <li><a href="http://www.waibo.wang/user/">登录</a></li>
+  <li class="b">|</li>
+  <li><a href="http://www.waibo.wang/user/register.asp" target="_blank">注册</a></li>
+ </div>
+ </div>
+
+<div class="topnav">
+<div class="container">
+  <div class="row-fluid mtz">
+  <div class="span3 topnav-logo">
+    <a href="http://www.waibo.wang/"><p class="logo-cn">歪脖网</p><p class="logo-en hidden-phone">waibo.wang</p></a>
+  </div>
+  <div class="span6 nav">
+   <ul>
+     <li ><a href="http://www.waibo.wang/">首页</a></li>
+     <li class="active"><a href="http://localhost/waibo/">教程</a></li>
+     <li ><a href="http://www.waibo.wang/wiki/">专栏</a></li>
+     <li ><a href="http://www.waibo.wang/demo/">素材</a></li>
+   </ul>
+  </div>
+  <div class="span3 topnav-form">
+  </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+ <div class="container">
+ <div class="row-fluid">
+ <aside class="span3">
+ <map id="oAll" name="oAll">
+ <area title="全部展开" shape="rect" coords="0,0,22,20"  href="javascript:tree.openAll();" onfocus="blur(this);">
+ <area title="全部收起" shape="rect" coords="22,0,44,20" href="javascript:tree.closeAll();" onfocus="blur(this);">
+ </map>
+ <header><span>目录</span><img src="../../../../img/map.png" usemap="#oAll"/></header>
+ <script src="http://localhost/waibo/js/dtree.js"></script>
+ <script src="http://localhost/waibo/bible/less/js/tree.js"></script>
+ <script>
+    createTree("203");
+ </script>
+ </aside>
+
+ <main class="span9">
+ <header><div class="name"><strong>Less简明教程</strong></div><div class="section">2.3 嵌套规则</div></header>
+ <div><label id="treeview"><input id="show" type="checkbox" checked /> 文档结构视图</label><span class="hit">阅读（ <span id="hit"></span> ）</div>
+ <article>
+<h1 class="hide-text">Less 基础</h1>
+<h1 class="hide-text">Less 特性</h1>
+<h2 class="hide-text">变量</h2>
+<h2 class="hide-text">Mixin</h2>
+<h2>嵌套规则</h2>
+<p>在使用标准CSS时，要为多层嵌套的元素定义样式，要么使用后代选择器从外到内的嵌套定义，要么给这个元素加上类名或 id 来定义。这样的写法虽然很好理解，但维护起来很不方便，因为无法清晰了解到样式之间的关系。</p>
+<p>在Less中，嵌套规则使这个问题迎刃而解。嵌套规则允许在一个选择器中嵌套另一个选择器，这更容易设计出精简的代码，并且样式之间的关系一目了然。假设以下HTML 代码片段：</p>
+<pre class="prettyprint linenums">
+<code>&lt;header&gt;
+    &lt;h1&gt;&lt;a href="http://www.waibo.wang/"&gt;歪脖网&lt;/a&gt;&lt;/h1&gt;
+    &lt;p&gt;学Web开发，就到歪脖网！&lt;/p&gt;
+&lt;/header&gt;</code></pre>
+<p>Less代码可以这样写：</p>
+<pre class="prettyprint linenums">
+<code>header {
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+    a {
+      color: #f36;
+      text-decoration: none;
+
+      &amp;:hover {
+        color: #63f;
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  p {
+    font-size: 12px;
+
+    &amp;.slogan {
+      color: #f00;
+    }
+  }
+}</code></pre>
+<p>这难道不就是DOM的写法吗？说实话，当你第一眼看到这种写法，你就会情不自禁地爱上Less。这种写法减了选择器的层级关系，使代码的结构非常清晰，无论是阅读、还是后期维护都是那么自然，是不是有一种本来就该如此的感觉？</p>
+<p>在使用嵌套规则时，需要特别注意 &amp; 符号。内层选择器前面的 &amp; 符号就表示对父选择器的引用。在一个内层选择器的前面，如果没有 &amp; 符号，则它被解析为父选择器的后代；如果有 &amp; 符号，它就被解析为父元素自身或父元素的伪类。</p>
+<p>比如，上述代码中，由于选择器 h1 前面没有 &amp; 符号，则 h1 被解析为 header 选择器的后代，即 header h1；而 :hover 和 .slogan 前面有 &amp; 符号，&amp; 符号表示对父选择器的引用，则 &amp;.slogan 表示父元素自身，&amp;:hover 表示父元素的伪类，解析结果为 a:hover 和 p.slogan。编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>header h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+header h1 a {
+  color: #f36;
+  text-decoration: none;
+}
+header h1 a:hover {
+  color: #63f;
+  text-decoration: underline;
+}
+header p {
+  font-size: 12px;
+}
+header p.slogan {
+  color: #f00;
+}</code></pre>
+<p>事实上，父选择器运算符 &amp; 的作用，就是让当前的选择器和父级选择器，按照特定的规则进行连接。它有多种用途，比如创建重复的类名：</p>
+<pre class="prettyprint linenums">
+<code>.button {
+  &amp;-ok {
+    background-image: url("ok.png");
+  }
+  &amp;-cancel {
+    background-image: url("cancel.png");
+  }
+  &amp;-custom {
+    background-image: url("custom.png");
+  }
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.button-ok {
+  background-image: url("ok.png");
+}
+.button-cancel {
+  background-image: url("cancel.png");
+}
+.button-custom {
+  background-image: url("custom.png");
+}</code></pre>
+<p>在一个选择器中，&amp; 可以重复出现多次，这样，就可以多次引用父选择器而不必重复它的名字。如：</p>
+<pre class="prettyprint linenums">
+<code>.link {
+  &amp; + &amp; {
+    color: red;
+  }
+  &amp; &amp; {
+    color: green;
+  }
+  &amp;&amp; {
+    color: blue;
+  }
+  &amp;, &amp;ish {
+    color: cyan;
+  }
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.link + .link {
+  color: red;
+}
+.link .link {
+  color: green;
+}
+.link.link {
+  color: blue;
+}
+.link, .linkish {
+  color: cyan;
+}</code></pre>
+<p>需要注意的是所有的父选择器，而不是仅仅重复最近的祖先选择器。请看以下例子：</p>
+<pre class="prettyprint linenums">
+<code>.grand {
+  .parent {
+    &amp; &gt; &amp; {
+      color: red;
+    }
+    &amp; &amp; {
+      color: green;
+    }
+    &amp;&amp; {
+      color: blue;
+    }
+    &amp;, &amp;ish {
+      color: cyan;
+    }
+  }
+}</code></pre>
+<p>编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.grand .parent &gt; .grand .parent {
+  color: red;
+}
+.grand .parent .grand .parent {
+  color: green;
+}
+.grand .parent.grand .parent {
+  color: blue;
+}
+.grand .parent,
+.grand .parentish {
+  color: cyan;
+}</code></pre>
+<p>还可以将 &amp; 放在一个选择器的后面，来改变选择器的顺序，将当前选择器排列到最前面。如：</p>
+<pre class="prettyprint linenums">
+<code>.header {
+  .menu {
+    border-radius: 5px;
+    .no-borderradius &amp; {
+      background-image: url('images/button-background.png');
+    }
+  }
+}</code></pre>
+<p>选择器 .no-borderradius &amp; 会使 .no-borderradius 置于他的父选择器 .header .menu 的前面，形成 .no-borderradius .header .menu的结构。编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>.header .menu {
+  border-radius: 5px;
+}
+.no-borderradius .header .menu {
+  background-image: url('images/button-background.png');
+}</code></pre>
+<p>将 &amp; 用在一个使用逗号分隔的选择器列表中，可以产生列表中所有选择器的所有可能的排列，这被称作组合爆炸。如：</p>
+<pre class="prettyprint linenums">
+<code>p, a, ul, li {
+  border-top: 2px dotted #366;
+  &amp; + &amp; {
+    border-top: 0;
+  }
+}</code></pre>
+<p>上述列表中有 4 个选择器，列表中所有选择器的所有可能的排列，将有 16 种可能。编译后的CSS代码为：</p>
+<pre class="prettyprint linenums">
+<code>p,
+a,
+ul,
+li {
+  border-top: 2px dotted #366;
+}
+p + p,
+p + a,
+p + ul,
+p + li,
+a + p,
+a + a,
+a + ul,
+a + li,
+ul + p,
+ul + a,
+ul + ul,
+ul + li,
+li + p,
+li + a,
+li + ul,
+li + li {
+  border-top: 0;
+}</code></pre>
+<div id="modalReward" class="modal hide fade modal-reward" tabindex="-1">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h6>打赏</h6>
+</div>
+<div class="modal-body">
+<div class="tabbable reward-weipay">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#weipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#weipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#weipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#weipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#weipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#weipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="weipay1">
+<img src="http://localhost/waibo/img/weipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="weipay2">
+<img src="http://localhost/waibo/img/weipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="weipay5">
+<img src="http://localhost/waibo/img/weipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="weipay10">
+<img src="http://localhost/waibo/img/weipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="weipay20">
+<img src="http://localhost/waibo/img/weipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="weipayrand">
+<img src="http://localhost/waibo/img/weipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="tabbable reward-alipay hide">
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#alipay1">￥1</a></li>
+<li><a data-toggle="tab" href="#alipay2">￥2</a></li>
+<li><a data-toggle="tab" href="#alipay5">￥5</a></li>
+<li><a data-toggle="tab" href="#alipay10">￥10</a></li>
+<li><a data-toggle="tab" href="#alipay20">￥20</a></li>
+<li><a data-toggle="tab" href="#alipayrand">其他金额</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="alipay1">
+<img src="http://localhost/waibo/img/alipay1.png" alt="￥1"><span>￥1</span>
+</div>
+<div class="tab-pane" id="alipay2">
+<img src="http://localhost/waibo/img/alipay2.png" alt="￥2"><span>￥2</span>
+</div>
+<div class="tab-pane" id="alipay5">
+<img src="http://localhost/waibo/img/alipay5.png" alt="￥5"><span>￥5</span>
+</div>
+<div class="tab-pane" id="alipay10">
+<img src="http://localhost/waibo/img/alipay10.png" alt="￥10"><span>￥10</span>
+</div>
+<div class="tab-pane" id="alipay20">
+<img src="http://localhost/waibo/img/alipay20.png" alt="￥20"><span>￥20</span>
+</div>
+<div class="tab-pane" id="alipayrand">
+<img src="http://localhost/waibo/img/alipayrand.png" alt="￥随意"><span>￥随意</span>
+</div>
+</div>
+</div>
+<div class="reward-method">
+<label><input type="radio" name="method" value="weipay" checked><img src="http://localhost/waibo/img/weipay.png" alt="微信支付"></label>
+<label><input type="radio" name="method" value="alipay"><img src="http://localhost/waibo/img/alipay.png" alt="支付宝"></label>
+</div>
+</div>
+</div>
+<div class="reward">
+<p>如果本教程对您帮助很大，请随意打赏。您的支持，将鼓励我写出更好的教程！</p>
+<a data-toggle="modal" href="#modalReward">赏</a>
+</div>
+ <div class="page">
+   <a id="prev" href="http://localhost/waibo/bible/less/html/2/2.2.3.html" title="&#8592; 键到上一节">« 上一节</a>&#8592; 键盘方向键翻页 &#8594;<a id="next" href="http://localhost/waibo/bible/less/html/2/2.4.1.html" title="&#8594; 键到下一节">下一节 »</a>
+ </div>
+ </article>
+ </main>
+ </div>
+ </div>
+ <div class="floatPanel">
+	 <div class="ctrolPanel">
+		 <a href="javascript:;" class="arrow top" onClick="goTop()"><span>返回顶部</span></a>
+    <a href="#" class="phone"  data-target="#phone"><span>手机访问</span></a>
+    <a href="#" class="wechat" data-target="#wechat"><span>关注微信</span></a>
+    <a href="javascript:;" class="arrow bottom" onClick="goBottom()"><span>返回底部</span></a>
+  </div>
+	<div id="phone" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/site.png" /><p class="slogan">扫码访问歪脖网</p><p>随时随地，想看就看</p>
+		</div>
+	</div>
+	<div id="wechat" class="popPanel">
+		<div class="popPanel-inner">
+			<img src="http://localhost/waibo/img/weixin.png" /><p class="slogan">关注歪脖网微信</p><p>分享 web 知识、交流 web 经验</p>
+		</div>
+	</div>
+</div>
+ <footer>
+   <p>Copyright&copy;2017&nbsp;&nbsp;www.waibo.wang All Rights Reserved</p>
+   <p>陕ICP备17020676号-1&nbsp;&nbsp;&nbsp;&nbsp;客服QQ：376601179&nbsp;&nbsp;&nbsp;&nbsp;邮箱：376601179#qq.com
+ </footer>
+ <script src="../../../../js/prettify.js"></script>
+ <script src="../../../../js/bootstrap.min.js"></script>
+ <script>
+ $(function() {
+    prettyPrint();
+    bible();
+    load();
+    rewardMethod();
+ });
+ </script>
+</body>
+</html>
